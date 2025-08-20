@@ -22,6 +22,3 @@ This repository contains the implementation of the Ecomexperts hiring test for S
 ### Store Connection:
 - Connected to: saad-ullah-48-teststore.myshopify.com
 - Live theme deployed and visible on store
-
----
-*Repository is public and ready for evaluation* 

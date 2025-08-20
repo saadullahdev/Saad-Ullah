@@ -1,0 +1,120 @@
+{% comment %}
+  Shoppable "Tisso vison in the wild" grid (6 items)
+  - Controls: section max width, top/bottom padding, gap between tiles
+{% endcomment %}
+
+{{ 'wild-grid.css' | asset_url | stylesheet_tag }}
+{{ 'wild-grid.js' | asset_url | script_tag }}
+
+<section
+  id="wg-{{ section.id }}"
+  class="wg"
+  style="
+    --wg-container-width: {{ section.settings.container_width }}px;
+    --wg-pad-top: {{ section.settings.pad_top }}px;
+    --wg-pad-bottom: {{ section.settings.pad_bottom }}px;
+    --wg-gap: {{ section.settings.gap }}px;
+  "
+  data-currency-format='{{ shop.money_format | json }}'
+  data-bonus-id="{{ section.settings.bonus_product.selected_or_first_available_variant.id | default: '' }}"
+  data-bonus-title="{{ section.settings.bonus_product.title | escape }}"
+>
+  <div class="wg__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="wg__title">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="wg__grid">
+      {% for block in section.blocks %}
+        {% assign p = block.settings.product %}
+        {% if p %}
+          <article
+            class="wg-tile"
+            data-handle="{{ p.handle }}"
+            data-enable="{{ block.settings.enable_popup }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if p.featured_image -%}
+              <img
+                src="{{ p.featured_image | image_url: width: 900 }}"
+                alt="{{ p.title | escape }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <div style="aspect-ratio: 1/1; background:#f0f0f0;"></div>
+            {%- endif -%}
+
+            <button type="button" class="wg-hotspot" aria-label="Quick view {{ p.title | escape }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {%- comment -%} Modal {%- endcomment -%}
+  <div class="wg-modal" hidden>
+    <div class="wg-dialog" role="dialog" aria-modal="true" aria-labelledby="wg-modal-title">
+      <button class="wg-close" aria-label="Close">×</button>
+
+      <div class="product-meta-info">
+      <div class="wg-media"><img src="" alt=""></div>
+
+      <div class="wg-info">
+        <h3 id="wg-modal-title" class="wg-title"></h3>
+        <div class="wg-price"></div>
+        <div class="wg-desc"></div>
+        </div>
+        </div>
+        <div class= "variation-form">
+        <form class="wg-form" onsubmit="return false;">
+          <div class="wg-options"></div>
+          <button class="wg-atc" type="submit">
+            ADD TO CART <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="12" viewBox="0 0 27 12" fill="none">
+                <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75L1 5.25ZM26.5303 6.53033C26.8232 6.23743 26.8232 5.76256 26.5303 5.46967L21.7574 0.696697C21.4645 0.403804 20.9896 0.403804 20.6967 0.696697C20.4038 0.989591 20.4038 1.46446 20.6967 1.75736L24.9393 6L20.6967 10.2426C20.4038 10.5355 20.4038 11.0104 20.6967 11.3033C20.9896 11.5962 21.4645 11.5962 21.7574 11.3033L26.5303 6.53033ZM1 6.75L26 6.75L26 5.25L1 5.25L1 6.75Z" fill="#333333"/>
+                </svg></span>
+          </button>
+        </form>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "In the wild grid (popup)",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tisso vison in the wild" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Content max width", "min": 800, "max": 1600, "step": 10, "default": 1200 },
+    { "type": "range", "id": "pad_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range", "id": "pad_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range", "id": "gap", "label": "Gap between tiles", "min": 8, "max": 48, "step": 2, "default": 24 },
+
+    { "type": "header", "content": "Bonus rule" },
+    { "type": "product", "id": "bonus_product", "label": "Bonus product (Soft Winter Jacket)", "info": "Auto-added when user adds a variant with Color=Black and Size=Medium." }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Product tile",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "checkbox", "id": "enable_popup", "label": "Enable popup", "default": true }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    { "name": "In the wild grid (popup)", "blocks": [{ "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }] }
+  ]
+}
+{% endschema %}

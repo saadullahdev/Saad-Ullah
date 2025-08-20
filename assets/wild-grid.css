@@ -1,0 +1,307 @@
+/* ==========================================================================
+   Shoppable "in the wild" grid - FULL CSS
+   ========================================================================== */
+
+/* Section vars injected from the section */
+.wg {
+  --gap: var(--wg-gap, 24px);
+  --tile-radius: 2px;
+  --hotspot-size: 28px;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --btn-bg: #111;
+  --btn-text: #fff;
+  --btn-radius: 2px;
+  --border: #111;
+  --muted: #666;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  padding-top: var(--wg-pad-top, 0px);
+  padding-bottom: var(--wg-pad-bottom, 0px);
+}
+
+.wg__inner {
+  width: min(100%, var(--wg-container-width, 1200px));
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+.wg__title {
+  font-size: clamp(24px, 2vw, 36px);
+  margin: 0 0 18px;
+  font-family: lustria;
+}
+
+.wg__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+.wg-tile {
+  position: relative;
+  border-radius: var(--tile-radius);
+  overflow: hidden;
+  background: #f6f6f6;
+}
+.wg-tile img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  min-height: 444px;
+}
+
+.wg-hotspot {
+  position: absolute;
+  top: 30%;
+  right: 25%;
+  width: var(--hotspot-size);
+  height: var(--hotspot-size);
+  border-radius: 999px;
+  border: 0;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px #00000026;
+  cursor: pointer;
+}
+.wg-hotspot svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* --------------------------- Modal --------------------------- */
+.wg-modal[hidden] {
+  display: none !important;
+}
+.wg-modal {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.wg-dialog {
+  background: #fff;
+  width: min(92vw, 330px);
+  border-radius: 0;
+  box-shadow: var(--shadow);
+  position: relative;
+  display: grid;
+  gap: 0px;
+  padding: 40px 20px 28px 20px;
+}
+@media (max-width: 720px) {
+  .wg-dialog {
+    grid-template-columns: 1fr;
+    width: min(94vw, 560px);
+  }
+}
+
+.wg-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+}
+.product-meta-info {
+  display: flex;
+  width: 100%;
+}
+
+.wg-media {
+  min-width: 130px;
+}
+.wg-media img {
+  width: 100%;
+  max-width: 120px;
+  min-height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+/* -------------------- Typography   -------------------- */
+.wg-title {
+  margin: 6px 0 8px;
+  font-size: clamp(14px, 2.4vw, 16px);
+  font-weight: 300;
+}
+.wg-price {
+  font-size: clamp(15px, 2.2vw, 16px);
+  font-weight: 400;
+  margin: 10px 0 0 0;
+  color: #000;
+  font-family: lustria;
+}
+.wg-desc {
+  color: #000;
+  font-size: 12px;
+  line-height: 1.1;
+  letter-spacing: -0.1px;
+  font-weight: 300;
+  margin-bottom: 18px;
+}
+/* Labels */
+.wg-opt-group {
+  margin-bottom: 16px;
+}
+.wg-opt-label {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+/* ---------- COLOR: segmented bar with left color strips ---------- */
+.wg-swatches {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0;
+}
+.wg-swatches--bar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid #000;
+  overflow: hidden;
+}
+
+.wg-swatch {
+  position: relative;
+}
+.wg-swatch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Segment label */
+.wg-swatch label {
+  display: grid;
+  place-items: center;
+  padding: 4px 14px;
+  min-width: auto;
+  background: #fff;
+  color: #000;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* Left vertical color strip for each option */
+.wg-swatch label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  background: var(--swatch-color, #ddd);
+}
+
+/* Black divider between segments */
+.wg-swatch label.with-divider {
+  position: relative;
+}
+
+/* SELECTED: whole tile black, white text, left strip still shows color */
+.wg-swatch input:checked + label {
+  background: #000;
+  color: #fff;
+}
+.wg-options {
+  margin-top: 5px;
+}
+/* ---------- SIZE: large select ---------- */
+.wg-select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #111;
+  background: #fff;
+  font-size: 16px;
+  font-family: jost;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Add to cart */
+.wg-atc {
+  margin-top: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 18px;
+  text-transform: uppercase;
+  border-radius: 0;
+  min-width: 207px;
+  font-size: 16px;
+  text-decoration: none;
+  justify-content: center;
+  gap: 20px;
+  color: #fff;
+  width: 100%;
+  border: 0px;
+  font-weight: 400;
+  white-space: nowrap;
+  background: linear-gradient(to right, #fff544 50%, #000 50%) right;
+  background-size: 200% 100%;
+  transition: background-position 0.4s ease, color 0.4s ease;
+}
+.wg-atc:hover {
+  background-position: left;
+  color: #000;
+}
+.wg-atc svg path {
+  fill: #fff;
+}
+.wg-atc:hover svg path {
+  fill: #000;
+}
+
+.wg-atc[disabled] {
+  cursor: not-allowed;
+}
+@media (max-width: 990px) {
+  .wg__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .wg__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .wg-tile img {
+    min-height: 187px;
+  }
+  .wg-hotspot {
+    position: absolute;
+    top: 15px;
+    right: 50px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    border: 0;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px #00000026;
+    cursor: pointer;
+    padding: 0px;
+  }
+  .wg__title {
+    text-align: center;
+  }
+  section#wg-template--20091552792829__wild_grid_4NNahq {
+    padding-top: 40px;
+  }
+}
