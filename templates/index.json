@@ -1,61 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
-      "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,13 +33,130 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
+      }
+    },
+    "gift_guide_hero_3mNHeH": {
+      "type": "gift-guide-hero",
+      "name": "Gift Guide Hero",
+      "settings": {
+        "bg_image": "shopify://shop_images/Group_1000007949.jpg",
+        "bg_image_mobile": "shopify://shop_images/Frame.png",
+        "bg_position": "center center",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "kicker": "",
+        "heading": "The Gift Guide",
+        "body": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "btn_label": "Shop Now",
+        "btn_link": "#",
+        "kicker_mobile": "",
+        "heading_mobile": "The Gift Guide",
+        "body_mobile": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>",
+        "btn_label_mobile": "Shop Now",
+        "btn_link_mobile": "#",
+        "horizontal_alignment": "left",
+        "vertical_alignment": "center",
+        "min_height_desktop": 900,
+        "min_height_mobile": 420,
+        "container_width": 1340,
+        "content_max_width": 540,
+        "content_padding": 8,
+        "pad_top": 0,
+        "pad_bottom": 0,
+        "text_color": "#111111",
+        "button_bg": "#111111",
+        "button_text": "#ffffff",
+        "show_top_bar": true,
+        "topbar_text": "<p>Find the ideal gift for your loved ones.</p>",
+        "topbar_btn_label": "Choose Gift",
+        "topbar_btn_link": "#",
+        "topbar_text_mobile": "<p>Find the ideal gift for your loved ones.</p>",
+        "topbar_btn_label_mobile": "Choose Gift",
+        "topbar_btn_link_mobile": "#",
+        "topbar_bg": "#f5f5f5",
+        "topbar_text_color": "#000000",
+        "logo_text": "TISSO VISON",
+        "logo_image": "shopify://shop_images/Group_1000007858_1_5e543a00-a6f5-4b76-8916-57de3efd08a8.png",
+        "logo_width": 152,
+        "logo_link": "/",
+        "show_bottom_note": true,
+        "bottom_note": "<p>SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>",
+        "bottom_note_mobile": "<p>SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR</p>",
+        "bottom_bg": "#f5f5f5",
+        "bottom_text_color": "#000000"
+      }
+    },
+    "wild_grid_8p4agQ": {
+      "type": "wild-grid",
+      "blocks": {
+        "tile_HqfJLU": {
+          "type": "tile",
+          "settings": {
+            "product": "black-leather-bag",
+            "enable_popup": true
+          }
+        },
+        "tile_z9FFbW": {
+          "type": "tile",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "enable_popup": true
+          }
+        },
+        "tile_EPxMqp": {
+          "type": "tile",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "enable_popup": true
+          }
+        },
+        "tile_DwRg9M": {
+          "type": "tile",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "enable_popup": true
+          }
+        },
+        "tile_bhHK69": {
+          "type": "tile",
+          "settings": {
+            "product": "classic-varsity-top",
+            "enable_popup": true
+          }
+        },
+        "tile_8PEGxB": {
+          "type": "tile",
+          "settings": {
+            "product": "dark-denim-top",
+            "enable_popup": true
+          }
+        }
+      },
+      "block_order": [
+        "tile_HqfJLU",
+        "tile_z9FFbW",
+        "tile_EPxMqp",
+        "tile_DwRg9M",
+        "tile_bhHK69",
+        "tile_8PEGxB"
+      ],
+      "name": "In the wild grid (popup)",
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "container_width": 1340,
+        "pad_top": 60,
+        "pad_bottom": 52,
+        "gap": 18,
+        "bonus_product": "dark-winter-jacket"
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "gift_guide_hero_3mNHeH",
+    "wild_grid_8p4agQ"
   ]
 }
