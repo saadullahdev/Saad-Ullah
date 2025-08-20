@@ -20,5 +20,6 @@ This repository contains the implementation of the Ecomexperts hiring test for S
 - Pixel-perfect implementation from Figma design
 
 ### Store Connection:
-- Connected to: saad-ullah-48-teststore.myshopify.com
+- **Store URL**: https://saad-ullah-48-teststore.myshopify.com/
+- **Password**: saadullah123
 - Live theme deployed and visible on store
