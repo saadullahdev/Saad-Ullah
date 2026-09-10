@@ -1,0 +1,383 @@
+/* Gift Guide Hero — asset CSS */
+/* Uses CSS variables defined on the .gg-hero element from the section file */
+
+/* Layout & containers */
+.gg-hero {
+  position: relative;
+  overflow: hidden;
+  color: var(--gg-text);
+  padding-top: var(--gg-sec-pad-top);
+  padding-bottom: var(--gg-sec-pad-bot);
+}
+
+.gg-hero .gg-hero__container {
+  width: min(100%, var(--gg-container-width));
+  margin-inline: auto;
+  padding-inline: 16px;
+  display: grid;
+}
+
+/* Top announcement bar */
+.gg-hero .gg-hero__topbar {
+  background: var(--gg-topbar-bg);
+  color: var(--gg-topbar-text);
+  font-size: 14px;
+  line-height: 1.4;
+  z-index: 999;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+}
+
+.gg-hero .gg-hero__topbar-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Brand (text or image) on the left */
+.gg-hero .gg-hero__brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: clamp(16px, 2vw, 22px);
+  white-space: nowrap;
+}
+.gg-hero .gg-hero__brand img {
+  display: block;
+  height: auto;
+  width: var(--gg-logo-width, 140px);
+}
+
+/* Center message */
+.gg-hero .gg-hero__topbar-text {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+/* Right button */
+.gg-hero .gg-hero__topbar-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 18px;
+  text-transform: uppercase;
+  border-radius: 0;
+  min-width: 207px;
+  font-size: 16px;
+  text-decoration: none;
+  justify-content: center;
+  gap: 20px;
+  color: #000;
+  font-weight: 400;
+  white-space: nowrap;
+  background: linear-gradient(to right, black 50%, #fff544 50%) right;
+  background-size: 200% 100%;
+  transition: background-position 0.4s ease, color 0.4s ease;
+}
+a.gg-hero__topbar-btn:hover {
+  background-position: left;
+  color: #fff;
+}
+
+a.gg-hero__topbar-btn svg path {
+  fill: #000;
+}
+a.gg-hero__topbar-btn:hover svg path {
+  fill: #fff;
+}
+
+/* Background */
+.gg-hero .gg-hero__bg {
+  position: absolute;
+  top: 66px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+.gg-hero .gg-hero__bg > img,
+.gg-hero .gg-hero__bg picture > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.gg-hero .gg-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--gg-overlay);
+  opacity: var(--gg-overlay-opacity);
+}
+
+/* Content */
+.gg-hero .gg-hero__content-wrap {
+  position: relative;
+  z-index: 1;
+  min-height: var(--gg-min-height-desktop);
+  display: grid;
+  align-items: var(--gg-vertical-align);
+}
+@media (max-width: 749px) {
+  .gg-hero .gg-hero__content-wrap {
+    min-height: var(--gg-min-height-mobile);
+  }
+}
+
+.gg-hero .gg-hero__content {
+  max-width: var(--gg-content-max);
+  padding: var(--gg-content-pad);
+  text-align: var(--gg-horizontal-align);
+  position: absolute;
+  bottom: 40px;
+}
+
+.gg-hero .gg-hero__kicker {
+  margin: 0 0 8px 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.gg-hero .gg-hero__heading {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 5vw, 70px);
+  line-height: 1.05;
+  font-weight: 500;
+}
+.gg-hero .gg-hero__body {
+  margin: 0 0 20px;
+  font-size: clamp(14px, 1.6vw, 20px);
+  line-height: 140%;
+  font-weight: 400;
+}
+.gg-hero .gg-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 18px;
+  text-transform: uppercase;
+  border-radius: 0;
+  min-width: 207px;
+  font-size: 16px;
+  text-decoration: none;
+  justify-content: center;
+  gap: 20px;
+  color: #fff;
+  font-weight: 400;
+  white-space: nowrap;
+  background: linear-gradient(to right, #fff544 50%, #000 50%) right;
+  background-size: 200% 100%;
+  transition: background-position 0.4s ease, color 0.4s ease;
+}
+.gg-hero .gg-hero__btn:hover {
+  background-position: left;
+  color: #000;
+}
+.gg-hero .gg-hero__btn svg path {
+  fill: #fff;
+}
+.gg-hero .gg-hero__btn:hover svg path {
+  fill: #000;
+}
+
+/* Bottom note */
+.gg-hero .gg-hero__bottombar {
+  position: relative;
+  z-index: 1;
+  background: var(--gg-bbar-bg);
+  color: var(--gg-bbar-text);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 0;
+  margin-top: 10px;
+}
+.gg-hero .gg-hero__bottombar-text {
+  text-align: center;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  line-height: 1;
+}
+.gg-hero .gg-hero__bottombar-text p {
+  margin: 0px;
+}
+
+/* Horizontal alignment via container grid (set through variable) */
+.gg-hero[data-align="left"] .gg-hero__container {
+  justify-items: start;
+}
+.gg-hero[data-align="center"] .gg-hero__container {
+  justify-items: center;
+}
+.gg-hero[data-align="right"] .gg-hero__container {
+  justify-items: end;
+}
+
+/* Small screens: keep layout intact */
+@media (max-width: 480px) {
+  .gg-hero .gg-hero__topbar-inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+  }
+}
+
+/* Visibility helpers for mobile-only vs desktop/tablet */
+.gg-hide-mobile {
+  display: block;
+}
+.gg-show-mobile {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  a.gg-hero__btn.gg-hide-mobile {
+    display: none;
+  }
+  .gg-hero__bottombar-text.gg-show-mobile {
+    display: none;
+}
+}
+
+/* =============== MOBILE HEADER / DRAWER (drop-down) =============== */
+@media (max-width: 767px) {
+  .gg-hide-mobile {
+    display: none !important;
+  }
+  .gg-show-mobile {
+    display: block !important;
+  }
+  body.gg-no-scroll {
+    overflow: hidden;
+  }
+
+  .gg-hero .gg-hero__brand {
+    font-size: 18px;
+    text-align: center;
+    display: block;
+  }
+
+  /* Mobile top bar */
+  .gg-hero__mobilebar {
+    display: none;
+    background: var(--gg-topbar-bg);
+    color: var(--gg-topbar-text);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .gg-hero__mobilebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 23px 16px;
+    position: relative;
+    z-index: 12;
+    background: var(--gg-topbar-bg);
+    color: var(--gg-topbar-text);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+  .gg-hero .gg-hero__brand {
+    display: flex;
+    justify-content: center;
+  }
+  a.gg-hero__brand.gg-hero__brand--center img {
+    text-align: center;
+    display: flex;
+    max-width: 152px;
+  }
+  .gg-hero .gg-hero__bg {
+    top: auto;
+  }
+  .gg-hero .gg-hero__content {
+    position: absolute;
+    top: 40px;
+    text-align: center;
+    padding: 10px 40px 10px 20px;
+  }
+  a.gg-hero__btn.gg-show-mobile {
+    display: inline-block !important;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .gg-hero .gg-hero__content-wrap {
+    min-height: 360px;
+  }
+}
+
+/* Burger → X when open */
+.gg-hero__burger {
+  position: absolute;
+  left: 16px;
+  top: 55%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 28px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+span.closed-icon {
+  display: none;
+}
+.gg-hero__burger.is-open span.closed-icon {
+  display: block;
+}
+.gg-hero__burger.is-open .gg-hero__burger-lines {
+  display: none;
+}
+/* DROP-DOWN PANEL (opens below the bar; full width of section) */
+.gg-hero__mobdrawer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.22s ease;
+  z-index: 11;
+}
+.gg-hero__brand--center {
+  margin-inline: auto;
+}
+
+.gg-hero__mobdrawer.is-open {
+  max-height: 480px;
+}
+.gg-hero__mobdrawer[hidden] {
+  display: none !important;
+}
+
+.gg-hero__mobdrawer-inner {
+  padding: 10px 18px 18px 18px;
+  text-align: center;
+}
+.gg-hero__topbar-text--mobile {
+  color: #111;
+  text-align: center;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+.gg-hero__topbar-btn--mobile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: #ffe95a;
+  color: #111;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 auto;
+}

@@ -1,0 +1,364 @@
+{% comment %}
+  Gift Guide Hero — custom section
+  Desktop & tablet: unchanged from your version.
+  Mobile (≤ 767px): header with burger + centered brand. Drawer shows announcement text + button.
+  Mobile-specific copy fields are provided and fall back to desktop values when blank.
+{% endcomment %}
+
+{{ 'gift-guide-hero.css' | asset_url | stylesheet_tag }}
+
+{%- assign bg_img = section.settings.bg_image | image_url: width: 3840 -%}
+{%- if section.settings.bg_image_mobile != blank -%}
+  {%- assign bg_img_mobile = section.settings.bg_image_mobile | image_url: width: 1920 -%}
+{%- endif -%}
+
+{%- comment %} Resolve mobile overrides (fallback to desktop when empty) {% endcomment -%}
+{%- assign kicker_m      = section.settings.kicker_mobile      | default: section.settings.kicker -%}
+{%- assign heading_m     = section.settings.heading_mobile     | default: section.settings.heading -%}
+{%- assign body_m        = section.settings.body_mobile        | default: section.settings.body -%}
+{%- assign btn_label_m   = section.settings.btn_label_mobile   | default: section.settings.btn_label -%}
+{%- assign btn_link_m    = section.settings.btn_link_mobile    | default: section.settings.btn_link -%}
+{%- assign topbar_text_m = section.settings.topbar_text_mobile | default: section.settings.topbar_text -%}
+{%- assign topbar_btn_label_m = section.settings.topbar_btn_label_mobile | default: section.settings.topbar_btn_label -%}
+{%- assign topbar_btn_link_m  = section.settings.topbar_btn_link_mobile  | default: section.settings.topbar_btn_link -%}
+
+<section
+  id="section-{{ section.id }}"
+  class="gg-hero"
+  data-align="{{ section.settings.horizontal_alignment }}"
+  style="
+    --gg-text: {{ section.settings.text_color }};
+    --gg-btn-bg: {{ section.settings.button_bg }};
+    --gg-btn-text: {{ section.settings.button_text }};
+    --gg-overlay: {{ section.settings.overlay_color }};
+    --gg-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --gg-content-max: {{ section.settings.content_max_width }}px;
+    --gg-content-pad: {{ section.settings.content_padding }}px;
+    --gg-sec-pad-top: {{ section.settings.pad_top }}px;
+    --gg-sec-pad-bot: {{ section.settings.pad_bottom }}px;
+    --gg-bg-pos: {{ section.settings.bg_position }};
+    --gg-topbar-bg: {{ section.settings.topbar_bg }};
+    --gg-topbar-text: {{ section.settings.topbar_text_color }};
+    --gg-bbar-bg: {{ section.settings.bottom_bg }};
+    --gg-bbar-text: {{ section.settings.bottom_text_color }};
+    --gg-container-width: {{ section.settings.container_width }}px;
+    --gg-min-height-desktop: {{ section.settings.min_height_desktop }}px;
+    --gg-min-height-mobile: {{ section.settings.min_height_mobile }}px;
+    --gg-vertical-align: {{ section.settings.vertical_alignment }};
+    --gg-horizontal-align: {{ section.settings.horizontal_alignment }};
+  "
+>
+
+  {% comment %} ---------------- Desktop / Tablet top bar (unchanged) ---------------- {% endcomment %}
+  {%- if section.settings.show_top_bar -%}
+    <div class="gg-hero__topbar gg-hide-mobile" role="region" aria-label="Announcement">
+      <div class="gg-hero__container">
+        <div class="gg-hero__topbar-inner">
+
+          <a class="gg-hero__brand" href="{{ section.settings.logo_link | default: routes.root_url }}">
+            {%- if section.settings.logo_image != blank -%}
+              <img
+                src="{{ section.settings.logo_image | image_url: width: 300 }}"
+                alt="{{ section.settings.logo_text | default: shop.name | escape }}"
+                style="--gg-logo-width: {{ section.settings.logo_width }}px;"
+              >
+            {%- else -%}
+              {{ section.settings.logo_text | default: shop.name }}
+            {%- endif -%}
+          </a>
+
+          <div class="gg-hero__topbar-text">{{ section.settings.topbar_text }}</div>
+
+          {%- if section.settings.topbar_btn_label != blank and section.settings.topbar_btn_link != blank -%}
+          <a class="gg-hero__topbar-btn" href="{{ section.settings.topbar_btn_link }}">
+            {{ section.settings.topbar_btn_label }}
+            <span aria-hidden="true">
+               <svg xmlns="http://www.w3.org/2000/svg" width="27" height="12" viewBox="0 0 27 12" fill="none">
+                <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75L1 5.25ZM26.5303 6.53033C26.8232 6.23743 26.8232 5.76256 26.5303 5.46967L21.7574 0.696697C21.4645 0.403804 20.9896 0.403804 20.6967 0.696697C20.4038 0.989591 20.4038 1.46446 20.6967 1.75736L24.9393 6L20.6967 10.2426C20.4038 10.5355 20.4038 11.0104 20.6967 11.3033C20.9896 11.5962 21.4645 11.5962 21.7574 11.3033L26.5303 6.53033ZM1 6.75L26 6.75L26 5.25L1 5.25L1 6.75Z" fill="#333333"/>
+              </svg>
+            </span>
+          </a>
+          {%- endif -%}
+
+        </div>
+      </div>
+    </div>
+
+    {% comment %} ---------------- Mobile header + drawer (≤ 767px) ---------------- {% endcomment %}
+    <div class="gg-hero__mobilebar gg-show-mobile" role="region" aria-label="Mobile header">
+      <button class="gg-hero__burger" type="button" aria-controls="gg-mob-drawer-{{ section.id }}" aria-expanded="false">
+        <span class="gg-hero__burger-lines open-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
+<path d="M1 6.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1 1.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1 11.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></span>
+        <span class="closed-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+<path d="M1 13.9997L13.7279 1.27177" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1 1.00031L13.7279 13.7282" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></span>
+      </button>
+
+      <a class="gg-hero__brand gg-hero__brand--center" href="{{ section.settings.logo_link | default: routes.root_url }}">
+        {%- if section.settings.logo_image != blank -%}
+          <img
+            src="{{ section.settings.logo_image | image_url: width: 240 }}"
+            alt="{{ section.settings.logo_text | default: shop.name | escape }}"
+            style="--gg-logo-width: {{ section.settings.logo_width }}px;"
+          >
+        {%- else -%}
+          {{ section.settings.logo_text | default: shop.name }}
+        {%- endif -%}
+      </a>
+    </div>
+
+    <div class="gg-hero__mobdrawer" id="gg-mob-drawer-{{ section.id }}" hidden>
+      <div class="gg-hero__mobdrawer-inner">
+        <div class="gg-hero__topbar-text gg-hero__topbar-text--mobile">{{ topbar_text_m }}</div>
+
+        {%- if topbar_btn_label_m != blank and topbar_btn_link_m != blank -%}
+          <a class="gg-hero__topbar-btn gg-hero__topbar-btn--mobile" href="{{ topbar_btn_link_m }}">
+            {{ topbar_btn_label_m }}
+            <span aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="12" viewBox="0 0 27 12" fill="none">
+                <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75L1 5.25ZM26.5303 6.53033C26.8232 6.23743 26.8232 5.76256 26.5303 5.46967L21.7574 0.696697C21.4645 0.403804 20.9896 0.403804 20.6967 0.696697C20.4038 0.989591 20.4038 1.46446 20.6967 1.75736L24.9393 6L20.6967 10.2426C20.4038 10.5355 20.4038 11.0104 20.6967 11.3033C20.9896 11.5962 21.4645 11.5962 21.7574 11.3033L26.5303 6.53033ZM1 6.75L26 6.75L26 5.25L1 5.25L1 6.75Z" fill="#333333"/>
+              </svg>
+            </span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {% comment %} ---------------- Background ---------------- {% endcomment %}
+  <div class="gg-hero__bg" aria-hidden="true">
+    {%- if section.settings.bg_image_mobile != blank -%}
+      <picture>
+        <source media="(max-width: 767px)" srcset="{{ bg_img_mobile }}">
+        <img src="{{ bg_img }}" alt="" loading="eager" decoding="async">
+      </picture>
+    {%- else -%}
+      <img src="{{ bg_img }}" alt="" loading="eager" decoding="async">
+    {%- endif -%}
+    <div class="gg-hero__overlay"></div>
+  </div>
+
+  {% comment %} ---------------- Content ---------------- {% endcomment %}
+  <div class="gg-hero__content-wrap">
+    <div class="gg-hero__container">
+      <div class="gg-hero__content">
+        {%- if section.settings.kicker != blank -%}
+          <p class="gg-hero__kicker gg-hide-mobile">{{ section.settings.kicker | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="gg-hero__heading gg-hide-mobile">{{ section.settings.heading | escape }}</h1>
+        {%- endif -%}
+        {%- if section.settings.body != blank -%}
+          <div class="gg-hero__body rte gg-hide-mobile">{{ section.settings.body }}</div>
+        {%- endif -%}
+        {%- if section.settings.btn_label != blank and section.settings.btn_link != blank -%}
+          <a class="gg-hero__btn gg-hide-mobile" href="{{ section.settings.btn_link }}">
+            {{ section.settings.btn_label }}
+            <span aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="12" viewBox="0 0 27 12" fill="none">
+                <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75L1 5.25ZM26.5303 6.53033C26.8232 6.23743 26.8232 5.76256 26.5303 5.46967L21.7574 0.696697C21.4645 0.403804 20.9896 0.403804 20.6967 0.696697C20.4038 0.989591 20.4038 1.46446 20.6967 1.75736L24.9393 6L20.6967 10.2426C20.4038 10.5355 20.4038 11.0104 20.6967 11.3033C20.9896 11.5962 21.4645 11.5962 21.7574 11.3033L26.5303 6.53033ZM1 6.75L26 6.75L26 5.25L1 5.25L1 6.75Z" fill="#333333"/>
+              </svg>
+            </span>
+          </a>
+        {%- endif -%}
+
+        {% comment %} {# Mobile copy (≤ 767px) — uses *_mobile fields #} {% endcomment %}
+        {%- if kicker_m != blank -%}
+          <p class="gg-hero__kicker gg-show-mobile">{{ kicker_m | escape }}</p>
+        {%- endif -%}
+        {%- if heading_m != blank -%}
+          <h1 class="gg-hero__heading gg-show-mobile">{{ heading_m | escape }}</h1>
+        {%- endif -%}
+        {%- if body_m != blank -%}
+          <div class="gg-hero__body rte gg-show-mobile">{{ body_m }}</div>
+        {%- endif -%}
+        {%- if btn_label_m != blank and btn_link_m != blank -%}
+          <a class="gg-hero__btn gg-show-mobile" href="{{ btn_link_m }}">
+            {{ btn_label_m }}
+            <span aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="12" viewBox="0 0 27 12" fill="none">
+                <path d="M1 5.25C0.585786 5.25 0.25 5.58579 0.25 6C0.25 6.41421 0.585786 6.75 1 6.75L1 5.25ZM26.5303 6.53033C26.8232 6.23743 26.8232 5.76256 26.5303 5.46967L21.7574 0.696697C21.4645 0.403804 20.9896 0.403804 20.6967 0.696697C20.4038 0.989591 20.4038 1.46446 20.6967 1.75736L24.9393 6L20.6967 10.2426C20.4038 10.5355 20.4038 11.0104 20.6967 11.3033C20.9896 11.5962 21.4645 11.5962 21.7574 11.3033L26.5303 6.53033ZM1 6.75L26 6.75L26 5.25L1 5.25L1 6.75Z" fill="#333333"/>
+              </svg>
+            </span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {% comment %} ---------------- Bottom note (with mobile support) ---------------- {% endcomment %}
+{%- if section.settings.show_bottom_note and section.settings.bottom_note != blank -%}
+  <div class="gg-hero__bottombar" role="contentinfo" style="background: {{ section.settings.bottom_bg }}; color: {{ section.settings.bottom_text_color }};">
+    <div class="gg-hero__container">
+      <div class="gg-hero__bottombar-text gg-hide-mobile">
+        {{ section.settings.bottom_note }}
+      </div>
+      <div class="gg-hero__bottombar-text gg-show-mobile">
+        {{ section.settings.bottom_note_mobile | default: section.settings.bottom_note }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+
+
+
+{% schema %}
+{
+  "name": "Gift Guide Hero",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (desktop)" },
+    { "type": "image_picker", "id": "bg_image_mobile", "label": "Background image (mobile, optional)" },
+    {
+      "type": "select", "id": "bg_position", "label": "Background focal position",
+      "default": "center center",
+      "options": [
+        { "value": "left top", "label": "Left Top" },
+        { "value": "center top", "label": "Center Top" },
+        { "value": "right top", "label": "Right Top" },
+        { "value": "left center", "label": "Left Center" },
+        { "value": "center center", "label": "Center Center" },
+        { "value": "right center", "label": "Right Center" },
+        { "value": "left bottom", "label": "Left Bottom" },
+        { "value": "center bottom", "label": "Center Bottom" },
+        { "value": "right bottom", "label": "Right Bottom" }
+      ]
+    },
+    { "type": "color", "id": "overlay_color", "label": "Overlay color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 10 },
+
+    { "type": "text", "id": "kicker", "label": "Kicker (small label)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Gift Guide" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>" },
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "Shop Now" },
+    { "type": "url", "id": "btn_link", "label": "Button link" },
+
+    { "type": "header", "content": "Mobile overrides (≤ 767px)" },
+    { "type": "text", "id": "kicker_mobile", "label": "Kicker (mobile)" },
+    { "type": "text", "id": "heading_mobile", "label": "Heading (mobile)" },
+    { "type": "richtext", "id": "body_mobile", "label": "Body (mobile)" },
+    { "type": "text", "id": "btn_label_mobile", "label": "Button label (mobile)" },
+    { "type": "url", "id": "btn_link_mobile", "label": "Button link (mobile)" },
+
+    {
+      "type": "select", "id": "horizontal_alignment", "label": "Horizontal alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select", "id": "vertical_alignment", "label": "Vertical alignment",
+      "default": "center",
+      "options": [
+        { "value": "start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "end", "label": "Bottom" }
+      ]
+    },
+
+    { "type": "range", "id": "min_height_desktop", "label": "Min height (desktop)", "min": 320, "max": 900, "step": 10, "default": 560 },
+    { "type": "range", "id": "min_height_mobile", "label": "Min height (mobile)", "min": 200, "max": 800, "step": 10, "default": 420 },
+    { "type": "range", "id": "container_width", "label": "Container width (max)", "min": 900, "max": 1600, "step": 10, "default": 1200 },
+    { "type": "range", "id": "content_max_width", "label": "Content width (max)", "min": 280, "max": 900, "step": 10, "default": 520 },
+    { "type": "range", "id": "content_padding", "label": "Content padding", "min": 0, "max": 48, "step": 2, "default": 8 },
+    { "type": "range", "id": "pad_top", "label": "Section padding top", "min": 0, "max": 120, "step": 4, "default": 0 },
+    { "type": "range", "id": "pad_bottom", "label": "Section padding bottom", "min": 0, "max": 120, "step": 4, "default": 0 },
+
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "#111111" },
+    { "type": "color", "id": "button_text", "label": "Button text color", "default": "#ffffff" },
+
+    { "type": "header", "content": "Top announcement bar" },
+    { "type": "checkbox", "id": "show_top_bar", "label": "Show top bar", "default": true },
+    { "type": "richtext", "id": "topbar_text", "label": "Top bar text", "default": "<p>Find the ideal gift for your loved ones.</p>" },
+    { "type": "text", "id": "topbar_btn_label", "label": "Top bar button label", "default": "Choose Gift" },
+    { "type": "url", "id": "topbar_btn_link", "label": "Top bar button link" },
+
+    { "type": "richtext", "id": "topbar_text_mobile", "label": "Top bar text (mobile)" },
+    { "type": "text", "id": "topbar_btn_label_mobile", "label": "Top bar button label (mobile)" },
+    { "type": "url", "id": "topbar_btn_link_mobile", "label": "Top bar button link (mobile)" },
+
+    { "type": "color", "id": "topbar_bg", "label": "Top bar background", "default": "#FFE95A" },
+    { "type": "color", "id": "topbar_text_color", "label": "Top bar text color", "default": "#111111" },
+    { "type": "text", "id": "logo_text", "label": "Brand text (fallback)", "default": "TISSO VISON" },
+    { "type": "image_picker", "id": "logo_image", "label": "Brand image (optional)" },
+    { "type": "range", "id": "logo_width", "label": "Brand image width", "min": 60, "max": 240, "step": 2, "default": 140 },
+    { "type": "url", "id": "logo_link", "label": "Brand link (optional)" },
+
+   
+    { "type": "header", "content": "Bottom note" },
+{ "type": "checkbox", "id": "show_bottom_note", "label": "Show bottom note", "default": true },
+{ "type": "richtext", "id": "bottom_note", "label": "Bottom note text (desktop & tablet)", "default": "<p>SUSTAINABLE, ETHICALLY MADE • SIZES XXS TO 6XL</p>" },
+{ "type": "richtext", "id": "bottom_note_mobile", "label": "Bottom note text (mobile)", "default": "<p>SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR</p>" },
+{ "type": "color", "id": "bottom_bg", "label": "Bottom bar background", "default": "#ffffff" },
+{ "type": "color", "id": "bottom_text_color", "label": "Bottom bar text color", "default": "#111111" }
+
+  ],
+  "presets": [
+    { "name": "Gift Guide Hero" }
+  ]
+}
+{% endschema %}
+
+
+<script>
+{% comment %} header toggle {% endcomment %}
+
+  (function(){
+    var root   = document.getElementById('section-{{ section.id }}');
+    if (!root) return;
+    var bar    = root.querySelector('.gg-hero__mobilebar');
+    var burger = root.querySelector('.gg-hero__burger');
+    var drawer = root.querySelector('#gg-mob-drawer-{{ section.id }}');
+    var inner  = drawer && drawer.querySelector('.gg-hero__mobdrawer-inner');
+    if (!bar || !burger || !drawer || !inner) return;
+
+    function setHeight(open){
+      if (open){
+        drawer.removeAttribute('hidden');
+        // allow styles to apply before measuring
+        requestAnimationFrame(function(){
+          var h = inner.scrollHeight;
+          drawer.style.maxHeight = h + 'px';
+          drawer.classList.add('is-open');
+        });
+      } else {
+        drawer.style.maxHeight = '0px';
+        drawer.classList.remove('is-open');
+        // fully hide after animation for accessibility
+        setTimeout(function(){ drawer.setAttribute('hidden',''); }, 230);
+      }
+    }
+
+    function toggle(){
+      var open = burger.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setHeight(open);
+    }
+
+    function close(){
+      burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded','false');
+      setHeight(false);
+    }
+
+    burger.addEventListener('click', toggle);
+    // tap outside the panel (below it) doesn’t close; ESC does:
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+    // Recompute height on resize/orientation changes
+    window.addEventListener('resize', function(){
+      if (drawer.classList.contains('is-open')){
+        drawer.style.maxHeight = inner.scrollHeight + 'px';
+      }
+    });
+  })();
+ 
+</script>
